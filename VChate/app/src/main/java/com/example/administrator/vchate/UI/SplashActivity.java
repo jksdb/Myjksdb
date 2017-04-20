@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.example.administrator.vchate.R;
 import com.example.administrator.vchate.UI.BaseActivity;
@@ -21,6 +22,7 @@ public class SplashActivity extends BaseActivity {
             } else {
                 intent2Login();
             }
+            SplashActivity.this.finish();
         }
     };
 
@@ -30,5 +32,11 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
 
 handler.sendEmptyMessageDelayed(1,3000);
+        findViewById(R.id.splash).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 }

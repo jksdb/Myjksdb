@@ -15,6 +15,7 @@ import com.hyphenate.chat.EMClient;
  */
 
 public class SplashActivity extends BaseActivity {
+
     Handler handler = new Handler() {
         public void dispatchMessage(Message msg) {
             if (EMClient.getInstance().isLoggedInBefore()) {

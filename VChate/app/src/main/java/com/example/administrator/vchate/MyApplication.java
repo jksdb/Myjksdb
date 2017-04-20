@@ -1,4 +1,4 @@
-package com.example.administrator.vchate.Application;
+package com.example.administrator.vchate;
 
 
 import android.app.Application;

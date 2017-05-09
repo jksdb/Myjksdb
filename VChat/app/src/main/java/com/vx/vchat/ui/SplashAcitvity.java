@@ -9,9 +9,6 @@ import android.view.View;
 import com.hyphenate.chat.EMClient;
 import com.vx.vchat.R;
 
-/**
- * Created by 秦志涛 on 2017/4/20.
- */
 
 public class SplashAcitvity extends BaseActivity {
 

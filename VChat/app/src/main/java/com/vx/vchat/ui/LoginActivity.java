@@ -133,18 +133,18 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            mPasswordView.setError("密码太短");
             focusView = mPasswordView;
             cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
+            mEmailView.setError("账号不能为空");
             focusView = mEmailView;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
+            mEmailView.setError("账号只能是数字");
             focusView = mEmailView;
             cancel = true;
         }
@@ -281,7 +281,7 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mPasswordView.setError(getString(R.string.error_incorrect_password));
+                        mPasswordView.setError("密码错误");
                         mPasswordView.requestFocus();
                         showProgress(false);
                     }

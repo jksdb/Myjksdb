@@ -6,7 +6,6 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 
 /**
- * Created by 秦志涛 on 2017/4/20.
  */
 
 public class MyApplication extends Application {

@@ -3,9 +3,6 @@ package com.vx.vchat.until;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * Created by 秦志涛 on 2017/4/27.
- */
 
 public class Sputil {
     private static final String SP_NAME = "USER";

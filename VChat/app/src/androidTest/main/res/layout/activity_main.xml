@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.vx.vchat.MainActivity">
+    tools:context="com.vx.vchat.ui.MainActivity">
 
 <android.inputmethodservice.ExtractEditText
     android:layout_width="match_parent"

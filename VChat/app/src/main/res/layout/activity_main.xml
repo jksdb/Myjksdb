@@ -5,11 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.vx.vchat.MainActivity">
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="dfsfdfsfsf"
-    android:id="@+id/user_name"
-    />
+    tools:context="com.vx.vchat.ui.MainActivity">
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="退出" />
+
+    <LinearLayout
+        android:id="@+id/chat_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/chat_btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#10000000" />
+
+        <Button
+            android:id="@+id/chat_btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#10000000" />
+
+        <Button
+            android:id="@+id/chat_btn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#10000000" />
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/chat_lay" />
+
+
 </RelativeLayout>

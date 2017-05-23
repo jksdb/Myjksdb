@@ -3,44 +3,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/message_recyclerview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
 
     <LinearLayout
+        android:id="@+id/ll_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/ll_edtext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/message_ed"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:hint="context" />
 
             <Button
                 android:id="@+id/button5"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="发送" />
 
         </LinearLayout>
 
-
         <LinearLayout
-            android:id="@+id/ll_message"
+            android:id="@+id/ll_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:layout_below="@id/ll_edtext"
             android:orientation="horizontal">
 
             <Button
@@ -48,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="1" />
+                android:text="照片" />
 
             <Button
                 android:id="@+id/button2"
@@ -70,8 +69,19 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="4" />
+
         </LinearLayout>
 
+        <FrameLayout
+            android:id="@+id/message_bottom_fragmnt_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/message_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_message" />
 </RelativeLayout>

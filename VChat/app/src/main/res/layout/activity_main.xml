@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
     tools:context="com.vx.vchat.ui.MainActivity">
 
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="退出" />
 
     <LinearLayout
-        android:id="@+id/chat_lay"
+        android:id="@+id/chat_lay1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:visibility="gone">
 
         <Button
             android:id="@+id/chat_btn1"
@@ -43,11 +40,25 @@
 
     </LinearLayout>
 
+    <android.support.design.widget.TabLayout
+        android:id="@+id/chat_tableLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabSelectedTextColor="@color/colorPrimaryDark"
+        app:tabTextColor="@color/colorAccent"
+        >
+
+    </android.support.design.widget.TabLayout>
+
+
     <android.support.v4.view.ViewPager
+        android:layout_above="@id/chat_tableLayout"
         android:id="@+id/main_viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/chat_lay" />
+        />
 
 
 </RelativeLayout>

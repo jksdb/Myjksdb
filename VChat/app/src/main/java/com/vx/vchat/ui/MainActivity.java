@@ -1,38 +1,50 @@
 package com.vx.vchat.ui;
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMMessage;
 import com.vx.vchat.R;
 import com.vx.vchat.fragment.BaseFragment;
 import com.vx.vchat.fragment.ChatListFragment;
 import com.vx.vchat.fragment.ContactFragment;
 import com.vx.vchat.fragment.Three;
-import com.vx.vchat.ui.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private TextView tv;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, EMMessageListener, ViewPager.OnPageChangeListener {
     private ViewPager viewPager;
     private Button but1, but2, but3;
     private List<BaseFragment> list = new ArrayList<>();
+    private ChatListFragment chat;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//添加 消息监听
+        EMClient.getInstance().chatManager().addMessageListener(this);
+
         initView();
+        //menu  菜单的 退出键
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
     }
 
     public void onClick(View v) {
@@ -51,9 +63,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_mainactiviay, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            case R.id.menu_item_1:
+                Toast.makeText(this, "menu_item_1", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     private void setItem(int index) {
+        //设置当前页
         viewPager.setCurrentItem(index, true);
+
+
         but2.setBackgroundColor(getResources().getColor(R.color.abc_search_url_text_pressed));
         but1.setBackgroundColor(getResources().getColor(R.color.abc_search_url_text_pressed));
         but3.setBackgroundColor(getResources().getColor(R.color.abc_search_url_text_pressed));
@@ -83,17 +118,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         but2.setOnClickListener(this);
         but3.setOnClickListener(this);
 
+        tabLayout = (TabLayout) findViewById(R.id.chat_tableLayout);
 
-        tv = (TextView) findViewById(R.id.tv);
         viewPager = (ViewPager) findViewById(R.id.main_viewPager);
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EMClient.getInstance().logout(true);
-            }
-        });
-
-        initDate();
+        //Fragment适配器
+        getFragment();
 
         FragmentPagerAdapter fpa = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -107,35 +136,125 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 return list.size();
             }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return super.getPageTitle(position);
+            }
         };
+
         viewPager.setAdapter(fpa);
-        setItem(0);
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        //吧tabLayout和viewPager绑定
+        tabLayout.setupWithViewPager(viewPager);
+        //==========================
+        tabLayout.getTabAt(0).setIcon(R.mipmap.xx);
+        tabLayout.getTabAt(1).setIcon(R.mipmap.lxr);
+        tabLayout.getTabAt(2).setIcon(R.mipmap.zy);
+        //===========================
+        //添加  标签选择监听
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onTabSelected(TabLayout.Tab tab) {
 
+                if (tab == tabLayout.getTabAt(0)) {
+                    tab.setIcon(R.mipmap.xx1);
+                } else if (tab == tabLayout.getTabAt(1)) {
+                    tab.setIcon(R.mipmap.lxr1);
+                } else {
+                    tab.setIcon(R.mipmap.zy1);
+                }
             }
 
             @Override
-            public void onPageSelected(int position) {
-                setItem(position);
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+                if (tab == tabLayout.getTabAt(0)) {
+                    tab.setIcon(R.mipmap.xx);
+                } else if (tab == tabLayout.getTabAt(1)) {
+                    tab.setIcon(R.mipmap.lxr);
+                } else {
+                    tab.setIcon(R.mipmap.zy);
+                }
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
+            public void onTabReselected(TabLayout.Tab tab) {
 
             }
         });
+
+
+        //预加载个数
+        viewPager.setOffscreenPageLimit(2);
+
+        setItem(0);
+
+        viewPager.addOnPageChangeListener(this);
     }
 
-    private void initDate() {
-        ChatListFragment chat = new ChatListFragment();
+    private void getFragment() {
+        chat = new ChatListFragment();
         ContactFragment contact = new ContactFragment();
         Three three = new Three();
 
         list.add(chat);
         list.add(contact);
         list.add(three);
+    }
+
+    @Override
+    public void onMessageReceived(List<EMMessage> list) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                chat.resetList();
+            }
+        });
+
+    }
+
+    @Override
+    public void onCmdMessageReceived(List<EMMessage> list) {
+
+    }
+
+    @Override
+    public void onMessageReadAckReceived(List<EMMessage> list) {
+
+    }
+
+    @Override
+    public void onMessageDeliveryAckReceived(List<EMMessage> list) {
+
+    }
+
+    @Override
+    public void onMessageChanged(EMMessage emMessage, Object o) {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        EMClient.getInstance().chatManager().removeMessageListener(this);
+
+        super.onDestroy();
+    }
+    //============================================
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        setItem(position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

@@ -121,6 +121,7 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
         }
 
         // Reset errors.
+        //重置 错误信息
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
@@ -270,7 +271,7 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
                 EMClient.getInstance().groupManager().loadAllGroups();
                 EMClient.getInstance().chatManager().loadAllConversations();
                 Log.e("login", "onSuccess");
-                Sputil.setloginUser( LoginActivity.this, username);
+                Sputil.setloginUser(LoginActivity.this, username);
 
                 intenToMain();
                 finish();

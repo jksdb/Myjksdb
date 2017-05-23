@@ -4,40 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
     <ImageView
         android:id="@+id/item_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_launcher" />
 
-    <LinearLayout
-        android:id="@+id/ll_timeandread"
-        android:layout_width="wrap_content"
+
+    <RelativeLayout
+        android:layout_toRightOf="@id/item_img"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_margin="5dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/item_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="time" />
-
-        <TextView
-            android:id="@+id/item_unread"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="unread"
-            android:textColor="#ff0000" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_toLeftOf="@+id/ll_timeandread"
-        android:layout_toRightOf="@+id/item_img"
         android:orientation="vertical">
 
         <TextView
@@ -48,6 +26,7 @@
             android:textSize="20dp" />
 
         <LinearLayout
+            android:layout_below="@id/item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -66,7 +45,26 @@
                 android:layout_height="wrap_content"
                 android:text="context" />
         </LinearLayout>
-    </LinearLayout>
 
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:id="@+id/ll_timeandread"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/item_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="time" />
+
+            <TextView
+                android:id="@+id/item_unread"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="unread"
+                android:textColor="#ff0000" />
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

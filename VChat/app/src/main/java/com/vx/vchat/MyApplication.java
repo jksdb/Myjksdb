@@ -14,6 +14,8 @@ public class MyApplication extends Application {
         super.onCreate();
 
         initEMsdk();
+
+
     }
 
     private void initEMsdk() {
